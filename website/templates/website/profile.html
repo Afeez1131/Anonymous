@@ -1,0 +1,24 @@
+{% extends 'website/base.html' %}
+{% load static %}
+
+
+{% block content %}<br>
+<div class="col-md-6 offset-md-3">
+
+    
+    <div class="list-group">
+        <button type="button" class="list-group-item list-group-item-action active">
+          <h3 class="text-center">Profile Page</h3>
+        </button>
+    </button>
+    <button type="button" class="list-group-item list-group-item-action" disabled><strong>Username:</strong> {{ user.username }}</button>
+    <button type="button" class="list-group-item list-group-item-action" disabled><strong>First Name:</strong> {{ user.first_name }}</button>
+    <button type="button" class="list-group-item list-group-item-action" disabled><strong>Last:</strong> {{ user.last_name }}</button>
+    <button type="button" class="list-group-item list-group-item-action" disabled><strong>E-mail:</strong> {{ user.email }}</button>
+  </div>
+  <br><hr><br>
+  <div class="text-center">
+   <h5><strong><a href="{% url 'edit_profile' %}">Edit Profile</a> |
+   <a href="{% url 'password_change' %}">Change Password</a></strong></h5>
+</div></div><br>
+{% endblock content %}

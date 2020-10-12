@@ -1,0 +1,49 @@
+{% extends 'website/base.html' %}
+{% load static %}
+
+
+{% block content %}<br>
+<div class="container">
+<div class="col-md-6 offset-md-3">
+  
+    
+    <span class="d-block p-3 text-white" style="background-color:rgba(4, 6, 163, 0.9);"><h1 class="text-center">Messages</h1></span><br>
+        <div class="card rounded-0">    
+    {% for message in user_messages %}
+
+                <div class="card-body" style="padding-top:5px; padding-bottom:5px;">
+                  <h4>{{forloop.counter}}.<small>&nbsp;Sender: {{ message.name }}</small></h4>
+                  <p><small>Date and Time  : {{message.created}}</small></p>
+                  <p class="card-text"><strong>Message</strong> : {{message.message}}</p> 
+                  {% if user_name == request.user %}
+                     <a href="{% url 'delete_message' message.id %}"><button class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></button></a>
+                     <a href="{% url 'spam_message' message.id %}"><button class="btn btn-warning btn-sm"><i class="fa fa-window-close" aria-hidden="true"></i>&nbsp;Spam</button></a> 
+                  {% endif %}   <hr>  
+                </div>
+                <!-- &nbsp;  -->
+    {% endfor %}</div>
+<form method="POST">
+        {% csrf_token %}
+        <h5 class="text-center" style="padding:10px;">Send a New Anonymous Message</h3>
+        <br>
+        
+              <input type="hidden" class="form-control" name='username' value="Anonymous">
+                <textarea class="form-control rounded-0" name='message' placeholder="Your Message" rows="4" maxlength="100"></textarea>
+              <br>  
+
+              <script type="text/javascript">
+                $('textarea').maxlength({
+                          alwaysShow: true,
+                        threshold: 10,
+                        warningClass: "label label-success",
+                        limitReachedClass: "label label-danger",
+                        separator: ' out of ',
+                        preText: ' ',
+                        postText: ' chars.',
+                        validate: true
+                    });
+              </script>
+
+        <input type="submit" class="btn btn-primary" value="Send Message">
+    </form></div></div><br>
+{% endblock content %}
